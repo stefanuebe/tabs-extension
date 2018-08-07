@@ -5,7 +5,7 @@
 
     <groupId>org.vaadin.stefan</groupId>
     <artifactId>tabs-parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>Tabs Extension Parent</name>
 
     <packaging>pom</packaging>

@@ -64,10 +64,6 @@ TabsExtension.createFilterForTabs(tabs, CloseableTab.TABS_FILTER);
 
 ### Example of creating tabs via a inline text field component
 
-This example shows how to add a text field and a button as part of the tab sheet with 
-that you may create new tabs. That allows you to give the user the feeling of that the
-text field and button are an integrated part of the tab sheet.
-
 ```
 Tabs tabs = new Tabs();
 add(tabs);
