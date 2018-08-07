@@ -39,7 +39,7 @@ public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
 
 			tabs.remove(this);
 
-			if (selectedIndex > 0 && selectedIndex > i) {
+			if (selectedIndex > 0 && (selectedIndex > i || selectedIndex == tabs.getComponentCount())) {
 				ui.getPage().executeJavaScript("$0.selected--;", tabs);
 			} else if(selectedIndex == i && tabs.getComponentCount() > 0){
 				ui.getPage().executeJavaScript("$0.dispatchEvent(new CustomEvent('selected-changed', {bubbles: true, composed: true}));", tabs);
