@@ -10,7 +10,8 @@ import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 
 public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
-	private boolean closed;
+
+	public static final String TABS_FILTER = "VAADIN-BUTTON";
 
 	public CloseableTab(String label) {
 		super(label);
@@ -24,7 +25,6 @@ public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
 	}
 
 	private void close() {
-		closed = true;
 		getUI().ifPresent(ui -> getParent().ifPresent(p -> {
 			Tabs tabs = (Tabs) p;
 			int selectedIndex = tabs.getSelectedIndex();
@@ -32,13 +32,12 @@ public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
 
 			tabs.remove(this);
 
-			if (selectedIndex > 0 && selectedIndex >= i) {
+			if (selectedIndex > 0 && selectedIndex > i) {
 				ui.getPage().executeJavaScript("$0.selected--;", tabs);
+			} else if(selectedIndex == i && tabs.getComponentCount() > 0){
+				ui.getPage().executeJavaScript("$0.dispatchEvent(new CustomEvent('selected-changed', {bubbles: true, composed: true}));", tabs);
 			}
 		}));
 	}
 
-	public boolean isClosed() {
-		return closed;
-	}
 }
