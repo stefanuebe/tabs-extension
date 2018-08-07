@@ -34,6 +34,20 @@ Registration registration = TabsExtension.createFilterForTabs(tabs, ...); // fil
 registration.remove(); // after that call the filter will be deactivated
 ```
 
+### Closable tabs
+
+The extension comes also with a implementation for closeable tabs. You may use them like other tabs, the only
+difference is, that the tab shows a close button, that will remove the tab from the tab sheet and handle
+the selection of a new tab.
+
+You may style the tab as wanted. To style the button, just use the `getButton()` method of the tab.
+```
+CloseableTab closeableTab = new CloseableTab("Label");
+closeableTab.addClassName("my-closeable-tab");
+closeableTab.getButton().addClassName("my-closeable-button");
+```
+
+## Examples
 ### Example of a filter for closeable tabs
 
 ```
