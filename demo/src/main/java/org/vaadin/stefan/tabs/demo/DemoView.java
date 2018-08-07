@@ -26,7 +26,7 @@ public class DemoView extends VerticalLayout {
 				.mapToObj(value -> new CloseableTab("Tab " + value))
 				.forEach(tabs::add);
 
-		tabs.addSelectedChangeListener(event -> Notification.show("Selected " + tabs.getSelectedIndex()));
+		tabs.addSelectedChangeListener(event -> Notification.show("Selected tab index " + tabs.getSelectedIndex()));
 
 		Registration filterForTabs = TabsExtension.createFilterForTabs(tabs, CloseableTab.TABS_FILTER);
 
