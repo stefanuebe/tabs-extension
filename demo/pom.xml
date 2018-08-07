@@ -50,10 +50,10 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.3.7.v20160115</version>
                 <configuration>
-                    <scanIntervalSeconds>-1</scanIntervalSeconds>
+                    <scanIntervalSeconds>2</scanIntervalSeconds>
                     <!-- Use test scope because the UI/demo classes are in 
                         the test package. -->
-                    <useTestScope>true</useTestScope>
+                    <useTestScope>false</useTestScope>
                     <!--<webAppConfig>-->
                         <!--&lt;!&ndash; This is only needed to be able to unzip webjars-->
                             <!--directly into src/test/webjar-debug and modify them for testing &ndash;&gt;-->
