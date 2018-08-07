@@ -9,21 +9,28 @@ import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 
+/**
+ * A sample for a closeable tab. This tab provides a modifiable button, that will remove the tab from its parent and
+ * update the selection properly.
+ */
 public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
 
 	public static final String TABS_FILTER = "VAADIN-BUTTON";
+	private final Button button;
 
+	/**
+	 * Creates a new instance with the given label.
+	 * @param label label
+	 */
 	public CloseableTab(String label) {
 		super(label);
-		Button button = new Button(VaadinIcon.CLOSE.create(), event -> close());
+		button = new Button(VaadinIcon.CLOSE.create(), event -> close());
 		add(button);
 	}
 
-	@Override
-	protected void onAttach(AttachEvent attachEvent) {
-		super.onAttach(attachEvent);
-	}
-
+	/**
+	 * Called by the close button.
+	 */
 	private void close() {
 		getUI().ifPresent(ui -> getParent().ifPresent(p -> {
 			Tabs tabs = (Tabs) p;
@@ -40,4 +47,11 @@ public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
 		}));
 	}
 
+	/**
+	 * Returns the close button instance.
+	 * @return close button instance
+	 */
+	public Button getButton() {
+		return button;
+	}
 }
