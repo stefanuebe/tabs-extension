@@ -1,24 +1,22 @@
-# Tabs Extension
+# Tab sheet Extension
 
 This addon extends the Vaadin 10 Tabs with a few additional features. This features 
-may deprecate in future when they move into core.
+may deprecate in future if the core provides similar functions.
 
 ## Development instructions
 
-The activation of the feature orientates on the Java 8 API by "extending" a given component.
+### Creating a common filter
 
-### Filter for selection
 The extension allows you to set a list of filterable components for a `Tabs` instance that should not fire a selection change event. 
-
 With this feature you may add components, that the user can interact with and let them handle the selection manually.
 
-**Creating a common filter**
 ```
 String[] arrayOfTagNames = new String[] {"vaadin-button", "vaadin-text-field", ...};
 TabsExtension.createFilterForTabs(tabs, arrayOfTagNames);
 ```
 
-**Disable tab selection via keyboard**
+### Disable tab selection via keyboard
+
 This method is needed when you add writable components (like a text field) as part of you
 tabs or as a tab sheet component. Otherwise the tab sheet will select text matching tabs when
 you "type" the respective key.
@@ -26,8 +24,8 @@ you "type" the respective key.
 TabsExtension.disableKeySelectionOfTabs(tabs);
 ```
 
+### Removing a modification
 
-**Removing a modification**
 All TabExtension methods will return a Registration with that you may remove the changes from your element.
 
 ```
@@ -36,7 +34,8 @@ Registration registration = TabsExtension.createFilterForTabs(tabs, ...); // fil
 registration.remove(); // after that call the filter will be deactivated
 ```
 
-**Example of a filter for closeable tabs**
+### Example of a filter for closeable tabs
+
 ```
 Tabs tabs = new Tabs();
 add(tabs);
@@ -49,7 +48,8 @@ tabs.addSelectedChangeListener(event -> Notification.show("Selected " + tabs.get
 TabsExtension.createFilterForTabs(tabs, CloseableTab.TABS_FILTER);
 ```
 
-**Example of creating tabs via a inline text field component **
+### Example of creating tabs via a inline text field component
+
 This example shows how to add a text field and a button as part of the tab sheet with 
 that you may create new tabs. That allows you to give the user the feeling of that the
 text field and button are an integrated part of the tab sheet.
@@ -68,7 +68,7 @@ add.addClickListener(event -> {
     tabs.add(tab);
 
     tabs.getElement().insertChild(tabs.getComponentCount() - 1, tab.getElement());
-    tabs.setSelectedTab(tab); // does not work?
+    tabs.setSelectedTab(tab); 
 
     textField.clear();
 });
@@ -79,5 +79,3 @@ tabs.add(horizontalLayout);
 TabsExtension.createFilterForTabs(tabs, "vaadin-text-field", "vaadin-button");
 TabsExtension.disableKeySelectionOfTabs(tabs);
 ```
-
-
