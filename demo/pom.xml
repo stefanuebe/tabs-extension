@@ -27,6 +27,7 @@
             <artifactId>tabs</artifactId>
             <version>${project.version}</version>
         </dependency>
+
     </dependencies>
 
     <properties>

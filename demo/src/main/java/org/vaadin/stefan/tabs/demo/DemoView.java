@@ -1,6 +1,5 @@
 package org.vaadin.stefan.tabs.demo;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -25,6 +24,7 @@ public class DemoView extends VerticalLayout {
 		IntStream.range(0, 10)
 				.mapToObj(value -> new CloseableTab("Tab " + value))
 				.forEach(tabs::add);
+
 
 		tabs.setSelectedIndex(0);
 		tabs.addSelectedChangeListener(event -> Notification.show("Selected tab index " + tabs.getSelectedIndex()));

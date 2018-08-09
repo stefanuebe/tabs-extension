@@ -31,7 +31,7 @@ public class CloseableTab extends Tab implements ClickNotifier<CloseableTab> {
 	/**
 	 * Called by the close button.
 	 */
-	private void close() {
+	protected void close() {
 		getUI().ifPresent(ui -> getParent().ifPresent(p -> {
 			Tabs tabs = (Tabs) p;
 			int selectedIndex = tabs.getSelectedIndex();
