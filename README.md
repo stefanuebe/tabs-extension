@@ -70,22 +70,19 @@ Tabs tabs = new Tabs();
 add(tabs);
 tabs.addSelectedChangeListener(event -> Notification.show("Selected " + tabs.getSelectedIndex()));
 
-HorizontalLayout horizontalLayout = new HorizontalLayout();
-TextField textField = new TextField();
+HorizontalLayout layout = new HorizontalLayout();
+TextField text = new TextField();
 Button add = new Button("Add");
-
 add.addClickListener(event -> {
-    Tab tab = new Tab(textField.getValue());
+    Tab tab = new Tab(text.getValue());
     tabs.add(tab);
-
     tabs.getElement().insertChild(tabs.getComponentCount() - 1, tab.getElement());
     tabs.setSelectedTab(tab); 
-
-    textField.clear();
+    text.clear();
 });
 
-horizontalLayout.add(textField, add);
-tabs.add(horizontalLayout);
+layout.add(text, add);
+tabs.add(layout);
 
 TabsExtension.createFilterForTabs(tabs, "vaadin-text-field", "vaadin-button");
 TabsExtension.modifyKeyHandlerOfTabs(tabs, true, false);

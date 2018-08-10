@@ -65,14 +65,27 @@ public class TabsExtension {
 			restoreKeydownHandler(tabs, page);
 
 			page.executeJavaScript("$0._superOnKeydown = $0._onKeydown; ", tabs);
-			page.executeJavaScript("$0._onKeydown = function(event) {" +
-					"   const key = event.key.replace(/^Arrow/, '');" +
-					"   if(event.target.tagName === 'VAADIN-BUTTON' && (key == 'Enter' || key == ' ')) {" +
-					"       event.target.click();" +
-					"   } else if(key.length != 1) {" +
-					"       $0._superOnKeydown(event);" +
-					"   }" +
-					"}; ", tabs);
+			String expression = "$0._onKeydown = function(event) {" +
+					"   const key = event.key.replace(/^Arrow/, '');";
+
+			if (enableButtonClickableByKeys) {
+				expression += "   if((event.target.tagName === 'A' || event.target.tagName === 'VAADIN-BUTTON') && (key == 'Enter' || key == ' ')) {" +
+						"       event.target.click();" +
+						"   } else ";
+			}
+
+			if (!disableCharacterCatch && enableButtonClickableByKeys) {
+				expression += "{ $0._superOnKeydown(event); }";
+			}
+
+
+			if (disableCharacterCatch) {
+				expression += "if(key.length != 1) {" +
+						"       $0._superOnKeydown(event);" +
+						"   }";
+			}
+						expression += "}; ";
+			page.executeJavaScript(expression, tabs);
 
 		});
 
@@ -85,6 +98,7 @@ public class TabsExtension {
 
 	/**
 	 * Restores the former key down handler.
+	 *
 	 * @param tabs tabs
 	 * @param page page
 	 */
