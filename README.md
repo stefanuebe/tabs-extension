@@ -60,6 +60,7 @@ IntStream.range(0, 10)
 tabs.addSelectedChangeListener(event -> Notification.show("Selected " + tabs.getSelectedIndex()));
 
 TabsExtension.createFilterForTabs(tabs, CloseableTab.TABS_FILTER);
+TabsExtension.modifyKeyHandlerOfTabs(tabs, false, true);
 ```
 
 ### Example of creating tabs via a inline text field component
@@ -87,5 +88,5 @@ horizontalLayout.add(textField, add);
 tabs.add(horizontalLayout);
 
 TabsExtension.createFilterForTabs(tabs, "vaadin-text-field", "vaadin-button");
-TabsExtension.disableKeySelectionOfTabs(tabs);
+TabsExtension.modifyKeyHandlerOfTabs(tabs, true, false);
 ```

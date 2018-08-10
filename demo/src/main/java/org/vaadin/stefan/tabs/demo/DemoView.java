@@ -45,9 +45,9 @@ public class DemoView extends Div {
 		/* ---------- */
 		add(new H3("Demo 2"));
 		add(new Paragraph("This demo shows the modification of the keydown handler of the tab sheet to allow you" +
-				"using a text field inside the tab sheet. Normally chars that equals a tab name start would be consumed and" +
-				"the tab sheet selects that tab for you. With that you cannot really type text into the text field. With" +
-				"the usage of that method, you may override this handling to use text fields and similar inside of the tab."));
+				" using a text field inside the tab sheet. Normally chars that equals a tab name start would be consumed and" +
+				" the tab sheet selects that tab for you. With that you cannot really type text into the text field. With" +
+				" the usage of that method, you may override this handling to use text fields and similar inside of the tab."));
 
 		add(new H5("Tabsheet WITHOUT keydown modification"));
 		add(new Paragraph("Tab sheet will react on keyboard input of normal chars."));
