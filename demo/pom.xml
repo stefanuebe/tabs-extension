@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.vaadin.stefan</groupId>
         <artifactId>tabs-parent</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.5</version>
     </parent>
 
 

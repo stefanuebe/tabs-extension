@@ -1,9 +1,12 @@
 package org.vaadin.stefan.tabs.demo;
 
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
 import org.vaadin.stefan.tabs.CloseableTab;
@@ -15,10 +18,49 @@ import java.util.stream.IntStream;
  * The main view contains a button and a template element.
  */
 @Route("")
-@HtmlImport("frontend://styles/shared-styles.html")
-public class DemoView extends VerticalLayout {
+public class DemoView extends Div {
 
 	public DemoView() {
+		add(new H1("TabExtension demos"));
+		add(new H3("Demo 1"));
+		add(new Paragraph("This demo shows closeable tabs. You may click the button via mouse or keyboard without" +
+				" having the tab sheet firing a selection change event. Also, if available a proper sibling will" +
+				" be selected (that fires a normal selection change event in both cases)."));
+
+		add(new H5("Tabsheet WITHOUT select change listener modification"));
+		add(createDemo1Tabsheet());
+
+		add(new H5("Tabsheet WITH select change listener modification"));
+		Tabs tabs = createDemo1Tabsheet();
+		add(tabs);
+
+
+		Registration filterForTabs = TabsExtension.createFilterForTabs(tabs, CloseableTab.TABS_FILTER);
+		TabsExtension.modifyKeyHandlerOfTabs(tabs, false, true);
+
+
+		/* ---------- */
+		add(new H3("Demo 2"));
+		add(new Paragraph("This demo shows the modification of the keydown handler of the tab sheet to allow you" +
+				"using a text field inside the tab sheet. Normally chars that equals a tab name start would be consumed and" +
+				"the tab sheet selects that tab for you. With that you cannot really type text into the text field. With" +
+				"the usage of that method, you may override this handling to use text fields and similar inside of the tab."));
+
+		add(new H5("Tabsheet WITHOUT keydown modification"));
+		add(createDemo2Tabsheet());
+
+		add(new H5("Tabsheet WITH keydown modification"));
+		tabs = createDemo2Tabsheet();
+		add(tabs);
+
+		TabsExtension.createFilterForTabs(tabs, "vaadin-text-field", "vaadin-button");
+		TabsExtension.modifyKeyHandlerOfTabs(tabs, true, true);
+
+
+//		filterForTabs.remove();
+	}
+
+	private Tabs createDemo1Tabsheet() {
 		Tabs tabs = new Tabs();
 		add(tabs);
 		IntStream.range(0, 10)
@@ -28,10 +70,31 @@ public class DemoView extends VerticalLayout {
 
 		tabs.setSelectedIndex(0);
 		tabs.addSelectedChangeListener(event -> Notification.show("Selected tab index " + tabs.getSelectedIndex()));
+		return tabs;
+	}
 
-		Registration filterForTabs = TabsExtension.createFilterForTabs(tabs, CloseableTab.TABS_FILTER);
+	private Tabs createDemo2Tabsheet() {
+		Tabs tabs = new Tabs();
+		tabs.addSelectedChangeListener(event -> Notification.show("Selected " + tabs.getSelectedIndex()));
 
-//		filterForTabs.remove();
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+		TextField textField = new TextField();
+		Button add = new Button("Add");
+
+		add.addClickListener(event -> {
+			Tab tab = new Tab(textField.getValue());
+			tabs.add(tab);
+
+			tabs.getElement().insertChild(tabs.getComponentCount() - 1, tab.getElement());
+			tabs.setSelectedTab(tab); // does not work?
+
+			textField.clear();
+		});
+
+		horizontalLayout.add(textField, add);
+		tabs.add(horizontalLayout);
+
+		return tabs;
 	}
 
 }
