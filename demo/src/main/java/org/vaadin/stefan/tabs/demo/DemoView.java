@@ -27,10 +27,13 @@ public class DemoView extends Div {
 				" having the tab sheet firing a selection change event. Also, if available a proper sibling will" +
 				" be selected (that fires a normal selection change event in both cases)."));
 
-		add(new H5("Tabsheet WITHOUT select change listener modification"));
+		add(new H5("Tabsheet WITHOUT select change listener / button click modification"));
+		add(new Paragraph("Button will not react on keyboard 'click'. Not selected tab will be selected before closed."));
 		add(createDemo1Tabsheet());
 
-		add(new H5("Tabsheet WITH select change listener modification"));
+		add(new H5("Tabsheet WITH select change listener / button click modification"));
+		add(new Paragraph("Button will react on keyboard 'click'. Not selected tab will not be selected when just closed."));
+
 		Tabs tabs = createDemo1Tabsheet();
 		add(tabs);
 
@@ -47,9 +50,12 @@ public class DemoView extends Div {
 				"the usage of that method, you may override this handling to use text fields and similar inside of the tab."));
 
 		add(new H5("Tabsheet WITHOUT keydown modification"));
+		add(new Paragraph("Tab sheet will react on keyboard input of normal chars."));
 		add(createDemo2Tabsheet());
 
 		add(new H5("Tabsheet WITH keydown modification"));
+		add(new Paragraph("Tab sheet will not react on keyboard input of normal chars."));
+
 		tabs = createDemo2Tabsheet();
 		add(tabs);
 
